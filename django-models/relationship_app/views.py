@@ -1,12 +1,11 @@
 # relationship_app/views.py
 
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic import DetailView
-from .forms import RegisterForm
 from .models import Library, Book
-from django.contrib.auth.forms import UserCreationForm
 
 # Login view
 class UserLoginView(LoginView):
@@ -19,13 +18,13 @@ class UserLogoutView(LogoutView):
 # Registration view
 def register(request):
     if request.method == "POST":
-        form = RegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect("home")  # Redirect to a home page after registration
     else:
-        form = RegisterForm()
+        form = UserCreationForm()
     return render(request, "relationship_app/register.html", {"form": form})
 
 # Function-based view for listing books
