@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.views.generic import DetailView
 from .forms import RegisterForm
 from .models import Library, Book
+from django.contrib.auth.forms import UserCreationForm
 
 # Login view
 class UserLoginView(LoginView):
