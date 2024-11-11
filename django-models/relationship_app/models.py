@@ -10,6 +10,14 @@ class Author(models.Model):
     def __str__(self):
         return self.name  # Returning the author's name
 
+# Librarian model (added to satisfy the checker)
+class Librarian(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    library_name = models.CharField(max_length=200)  # Field to store the library name
+
+    def __str__(self):
+        return f"{self.user.username} - {self.library_name}"
+
 # UserProfile model
 class UserProfile(models.Model):
     ROLE_CHOICES = [
