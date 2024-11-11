@@ -3,6 +3,14 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+# Author model as per the checker requirements
+class Author(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name  # Returning the author's name
+
+# UserProfile model
 class UserProfile(models.Model):
     ROLE_CHOICES = [
         ('Admin', 'Admin'),
@@ -29,7 +37,7 @@ def save_user_profile(sender, instance, **kwargs):
 # Book model with custom permissions
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)  # ForeignKey to Author
     isbn = models.CharField(max_length=13)
     publication_date = models.DateField()
 
