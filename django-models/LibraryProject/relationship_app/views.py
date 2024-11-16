@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import user_passes_test
@@ -34,8 +34,8 @@ def list_books(request):
     books = Book.objects.all()  # Retrieve all books from the database
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
-# View to add a new book
-@login_required
+# View to add a new book (requires 'can_add_book' permission)
+@permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -46,8 +46,8 @@ def add_book(request):
         form = BookForm()
     return render(request, 'relationship_app/add_book.html', {'form': form})
 
-# View to edit an existing book
-@login_required
+# View to edit an existing book (requires 'can_change_book' permission)
+@permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
@@ -59,8 +59,8 @@ def edit_book(request, pk):
         form = BookForm(instance=book)
     return render(request, 'relationship_app/edit_book.html', {'form': form})
 
-# View to delete an existing book
-@login_required
+# View to delete an existing book (requires 'can_delete_book' permission)
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
