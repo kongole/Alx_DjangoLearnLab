@@ -1,9 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book, Library
 from .forms import BookForm
+
+# Custom test functions to check user roles
+def is_member(user):
+    return user.groups.filter(name='Members').exists()
+
+def is_librarian(user):
+    return user.groups.filter(name='Librarians').exists()
+
+def is_admin(user):
+    return user.is_superuser  # Checks if the user is an admin
 
 # View to handle user registration
 def register(request):
@@ -62,3 +73,17 @@ def delete_book(request, pk):
 def library_detail(request, pk):
     library = get_object_or_404(Library, pk=pk)  # Get the library by primary key or return 404
     return render(request, 'relationship_app/library_detail.html', {'library': library})
+
+# User role-based views
+
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
+
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
