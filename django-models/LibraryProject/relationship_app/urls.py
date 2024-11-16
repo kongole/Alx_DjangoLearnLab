@@ -4,7 +4,7 @@ from .views import add_book, edit_book, delete_book, list_books, library_detail,
 
 urlpatterns = [
     # Authentication URLs
-    path('register/', register, name='register'),  # Register URL mapped to the register view
+    path('register/', views.register, name='register'),  # Register URL mapped to the register view
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),  # Login URL
     path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),  # Logout URL
     
