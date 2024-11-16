@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book, Library
 from .forms import BookForm
+from django.contrib.auth.decorators import permission_required
 
 # Custom test functions to check user roles
 def is_member(user):
