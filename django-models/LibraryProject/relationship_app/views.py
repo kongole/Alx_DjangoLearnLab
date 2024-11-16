@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
 from .models import Library
 from .forms import BookForm
+from django.views.generic.detail import DetailView
 
 # View to display a list of all books
 @login_required
