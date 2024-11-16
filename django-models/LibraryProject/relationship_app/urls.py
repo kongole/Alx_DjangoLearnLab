@@ -10,8 +10,8 @@ urlpatterns = [
     
     # Book-related URLs
     path('books/', views.list_books, name='list_books'),  # URL for listing books
-    path('book/add/', views.add_book, name='add_book'),  # URL for adding a book
-    path('book/<int:pk>/edit/', views.edit_book, name='edit_book'),  # URL for editing a book
+    path('book/add/', views.add_book, name='add_book/'),  # URL for adding a book
+    path('book/<int:pk>/edit/', views.edit_book, name='edit_book/'),  # URL for editing a book
     path('book/<int:pk>/delete/', views.delete_book, name='delete_book'),  # URL for deleting a book
     
     # Library-related URLs
