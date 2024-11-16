@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Book
+from .models import Library
 
 # View to display a list of all books
 @login_required
