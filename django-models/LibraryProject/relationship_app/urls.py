@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import add_book, edit_book, delete_book, list_books, LibraryDetailView  # Import necessary views
+from .views import add_book, edit_book, delete_book,LibraryDetailView 
+from .views import list_books # Import necessary views
 
 urlpatterns = [
     path('books/', list_books, name='list_books'),  # URL for listing books
